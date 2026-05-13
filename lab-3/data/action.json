@@ -1,0 +1,33 @@
+{
+    "categoryName": "Action Games",
+    "items": [
+      {
+        "id": 1,
+        "name": "Cyber Strike",
+        "shortname": "cyber-strike",
+        "description": "Futuristic shooter with fast-paced multiplayer battles.",
+        "price": 1299
+      },
+      {
+        "id": 2,
+        "name": "Shadow Ops",
+        "shortname": "shadow-ops",
+        "description": "Stealth action game with tactical missions.",
+        "price": 999
+      },
+      {
+        "id": 3,
+        "name": "Street Racer X",
+        "shortname": "street-racer-x",
+        "description": "Arcade racing game with neon city environments.",
+        "price": 849
+      },
+      {
+        "id": 4,
+        "name": "Warzone Elite",
+        "shortname": "warzone-elite",
+        "description": "Online combat game focused on team battles.",
+        "price": 1499
+      }
+    ]
+  }

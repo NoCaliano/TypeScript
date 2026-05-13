@@ -1,0 +1,33 @@
+{
+    "categoryName": "Indie Games",
+    "items": [
+      {
+        "id": 1,
+        "name": "Pixel Adventure",
+        "shortname": "pixel-adventure",
+        "description": "Retro-inspired platformer with pixel graphics.",
+        "price": 499
+      },
+      {
+        "id": 2,
+        "name": "Dream Forest",
+        "shortname": "dream-forest",
+        "description": "Relaxing exploration game with beautiful music.",
+        "price": 599
+      },
+      {
+        "id": 3,
+        "name": "Tiny Factory",
+        "shortname": "tiny-factory",
+        "description": "Automation puzzle game with minimalist visuals.",
+        "price": 749
+      },
+      {
+        "id": 4,
+        "name": "Lost Signal",
+        "shortname": "lost-signal",
+        "description": "Psychological sci-fi mystery from indie developers.",
+        "price": 899
+      }
+    ]
+  }

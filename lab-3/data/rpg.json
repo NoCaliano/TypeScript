@@ -1,0 +1,33 @@
+{
+  "categoryName": "RPG Games",
+  "items": [
+    {
+      "id": 1,
+      "name": "Kingdom Legends",
+      "shortname": "kingdom-legends",
+      "description": "Fantasy RPG with dragons, magic and huge open worlds.",
+      "price": 1599
+    },
+    {
+      "id": 2,
+      "name": "Eternal Souls",
+      "shortname": "eternal-souls",
+      "description": "Dark role-playing adventure with difficult bosses.",
+      "price": 1399
+    },
+    {
+      "id": 3,
+      "name": "Mystic Journey",
+      "shortname": "mystic-journey",
+      "description": "Story-driven RPG with multiple endings.",
+      "price": 1199
+    },
+    {
+      "id": 4,
+      "name": "Dragon Realm",
+      "shortname": "dragon-realm",
+      "description": "Epic quests and strategic turn-based combat.",
+      "price": 1699
+    }
+  ]
+}

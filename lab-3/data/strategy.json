@@ -1,0 +1,33 @@
+{
+    "categoryName": "Strategy Games",
+    "items": [
+      {
+        "id": 1,
+        "name": "Empire Builder",
+        "shortname": "empire-builder",
+        "description": "Build cities, manage economy and expand territories.",
+        "price": 899
+      },
+      {
+        "id": 2,
+        "name": "Battle Command",
+        "shortname": "battle-command",
+        "description": "Military strategy game with realistic warfare mechanics.",
+        "price": 1099
+      },
+      {
+        "id": 3,
+        "name": "Space Colonies",
+        "shortname": "space-colonies",
+        "description": "Sci-fi management simulator on distant planets.",
+        "price": 1249
+      },
+      {
+        "id": 4,
+        "name": "Chess Master AI",
+        "shortname": "chess-master-ai",
+        "description": "Modern chess simulator with adaptive AI opponents.",
+        "price": 699
+      }
+    ]
+  }

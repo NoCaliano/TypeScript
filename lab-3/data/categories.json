@@ -1,0 +1,26 @@
+[
+    {
+      "id": 1,
+      "name": "Action Games",
+      "shortname": "action",
+      "notes": "Dynamic games with intense gameplay and fast reactions."
+    },
+    {
+      "id": 2,
+      "name": "RPG Games",
+      "shortname": "rpg",
+      "notes": "Large worlds, character progression and long adventures."
+    },
+    {
+      "id": 3,
+      "name": "Strategy Games",
+      "shortname": "strategy",
+      "notes": "Planning, tactics and resource management."
+    },
+    {
+      "id": 4,
+      "name": "Indie Games",
+      "shortname": "indie",
+      "notes": "Creative projects from independent developers."
+    }
+  ]
