@@ -1,24 +1,37 @@
-export function renderVoteForm(options) {
-    const items = options
-        .map((opt) => `
-      <label class="flex items-center gap-3 cursor-pointer group">
-        <input type="radio" name="vote" value="${opt.id}"
-          class="w-4 h-4 accent-indigo-600 cursor-pointer" />
-        <span class="text-gray-700 group-hover:text-indigo-700 transition text-sm">${escapeHtml(opt.text)}</span>
-      </label>
-    `)
+export function renderVoteForm(questions, optionsByQuestion) {
+    const items = questions
+        .map((question, index) => {
+        const options = optionsByQuestion.get(question.id) ?? [];
+        return `
+        <section class="vote-question flex flex-col gap-4">
+          <div>
+            <p class="question-label text-xs font-semibold uppercase tracking-[0.2em]">Питання ${index + 1}</p>
+            <h2 class="vote-question__title">${escapeHtml(question.text)}</h2>
+          </div>
+          <div class="flex flex-col gap-3">
+            ${options
+            .map((opt) => `
+                  <label class="vote-option cursor-pointer">
+                    <input type="radio" name="vote-${question.id}" value="${opt.id}" class="cursor-pointer" />
+                    <span class="vote-option__text text-sm">${escapeHtml(opt.text)}</span>
+                  </label>
+                `)
+            .join('')}
+          </div>
+        </section>
+      `;
+    })
         .join('');
     return `
-    <div class="flex flex-col gap-3 bg-gray-50 rounded-xl p-5 border border-gray-200">
+    <div class="flex flex-col gap-4">
       ${items}
     </div>
-    <div id="vote-error" class="hidden text-sm text-red-600 bg-red-50 rounded-lg px-4 py-2 mt-2"></div>
-    <button id="submit-vote-btn"
-      class="mt-4 w-full bg-indigo-600 hover:bg-indigo-700 text-white font-semibold py-3 rounded-xl transition">
+    <div id="vote-error" class="hidden text-sm px-4 py-3 mt-3"></div>
+    <button id="submit-vote-btn" class="mt-4 w-full">
       Проголосувати
     </button>
   `;
 }
-function escapeHtml(str) {
-    return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+function escapeHtml(value) {
+    return value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }

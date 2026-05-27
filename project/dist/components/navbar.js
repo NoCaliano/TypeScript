@@ -1,13 +1,17 @@
 export function renderNavbar(activePage = '') {
     return `
-    <nav class="bg-indigo-700 text-white shadow-lg sticky top-0 z-50">
-      <div class="max-w-5xl mx-auto px-4 py-3 flex items-center justify-between">
-        <a href="#/" class="text-xl font-bold tracking-tight flex items-center gap-2">
-          <span class="text-2xl">🗳️</span> PollApp
+    <nav class="app-nav">
+      <div class="app-nav__inner flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+        <a href="#/" class="brand-mark">
+          <span class="brand-badge">✦</span>
+          <span class="brand-copy">
+            <span class="brand-name">PollApp</span>
+            <span class="brand-subtitle">Survey Studio</span>
+          </span>
         </a>
-        <div class="flex gap-4 text-sm font-medium">
-          <a href="#/" class="hover:text-indigo-200 transition ${activePage === 'home' ? 'text-white underline underline-offset-4' : 'text-indigo-200'}">Головна</a>
-          <a href="#/create" class="hover:text-indigo-200 transition ${activePage === 'create' ? 'text-white underline underline-offset-4' : 'text-indigo-200'}">Створити опитування</a>
+        <div class="nav-links">
+          <a href="#/" class="nav-link ${activePage === 'home' ? 'is-active' : ''}">Головна</a>
+          <a href="#/create" class="nav-link ${activePage === 'create' ? 'is-active' : ''}">Створити опитування</a>
         </div>
       </div>
     </nav>
