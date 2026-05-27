@@ -1,5 +1,6 @@
 import type { Poll } from '../models/poll.js';
 
+// Рендер картки опитування
 export function renderPollCard(poll: Poll, questionCount: number = 0): string {
   const date: string = new Date(poll.createdAt).toLocaleDateString('uk-UA');
 
@@ -20,6 +21,7 @@ export function renderPollCard(poll: Poll, questionCount: number = 0): string {
   `;
 }
 
+// Екранування HTML у картці
 function escapeHtml(value: string): string {
   return value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }

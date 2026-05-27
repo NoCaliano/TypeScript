@@ -1,3 +1,4 @@
+// Рендер верхньої навігації
 export function renderNavbar(activePage: string = ''): string {
   return `
     <nav class="app-nav">

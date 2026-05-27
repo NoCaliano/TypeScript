@@ -5,10 +5,12 @@ const POLLS_KEY = 'poll_app_polls';
 const QUESTIONS_KEY = 'poll_app_questions';
 const OPTIONS_KEY = 'poll_app_options';
 export class PollService {
+    // Ініціалізація сервісу опитувань
     constructor() {
         this.api = new ApiService('./data');
         this.userService = new UserService();
     }
+    // Отримання списку опитувань
     async getPolls() {
         const stored = localStorage.getItem(POLLS_KEY);
         if (stored) {
@@ -18,26 +20,32 @@ export class PollService {
         localStorage.setItem(POLLS_KEY, JSON.stringify(polls));
         return polls;
     }
+    // Отримання опитування за ID
     async getPollById(id) {
         const polls = await this.getPolls();
         return polls.find((poll) => poll.id === id);
     }
+    // Отримання всіх питань
     async getQuestions() {
         const { questions } = await this.ensureSurveyData();
         return questions;
     }
+    // Отримання питань конкретного опитування
     async getQuestionsByPollId(pollId) {
         const questions = await this.getQuestions();
         return questions.filter((question) => question.pollId === pollId);
     }
+    // Отримання всіх варіантів відповідей
     async getOptions() {
         const { options } = await this.ensureSurveyData();
         return options;
     }
+    // Отримання варіантів відповідей для опитування
     async getOptionsByPollId(pollId) {
         const options = await this.getOptions();
         return options.filter((option) => option.pollId === pollId);
     }
+    // Створення нового опитування
     async createPoll(title, description, questionsInput) {
         const polls = await this.getPolls();
         const { questions, options } = await this.ensureSurveyData();
@@ -71,6 +79,7 @@ export class PollService {
         localStorage.setItem(OPTIONS_KEY, JSON.stringify([...options, ...newOptions]));
         return newPoll;
     }
+    // Отримання всіх голосів
     getVotes() {
         const stored = localStorage.getItem(VOTES_KEY);
         if (!stored) {
@@ -102,9 +111,11 @@ export class PollService {
         }
         return normalizedVotes;
     }
+    // Отримання голосів конкретного опитування
     getVotesByPollId(pollId) {
         return this.getVotes().filter((vote) => vote.pollId === pollId);
     }
+    // Збереження відповідей користувача
     castVotes(pollId, answers) {
         const votes = this.getVotes();
         const nextId = votes.length > 0 ? Math.max(...votes.map((vote) => vote.id)) + 1 : 1;
@@ -118,16 +129,19 @@ export class PollService {
         localStorage.setItem(VOTES_KEY, JSON.stringify([...votes, ...newVotes]));
         return newVotes;
     }
+    // Перевірка факту голосування
     hasVoted(pollId) {
         const userId = this.userService.getUserId();
         const key = `voted_${pollId}_${userId}`;
         return localStorage.getItem(key) === 'true';
     }
+    // Позначення завершеного голосування
     markVoted(pollId) {
         const userId = this.userService.getUserId();
         const key = `voted_${pollId}_${userId}`;
         localStorage.setItem(key, 'true');
     }
+    // Нормалізація seed-даних опитувань
     async ensureSurveyData() {
         const polls = await this.getPolls();
         let questions = await this.loadQuestions();
@@ -170,6 +184,7 @@ export class PollService {
         }
         return { questions, options };
     }
+    // Завантаження питань із кешу або файлу
     async loadQuestions() {
         const stored = localStorage.getItem(QUESTIONS_KEY);
         if (stored) {
@@ -184,6 +199,7 @@ export class PollService {
             return [];
         }
     }
+    // Завантаження варіантів із кешу або файлу
     async loadOptions() {
         const stored = localStorage.getItem(OPTIONS_KEY);
         if (stored) {

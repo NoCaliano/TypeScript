@@ -1,3 +1,4 @@
+// Рендер форми голосування
 export function renderVoteForm(questions, optionsByQuestion) {
     const items = questions
         .map((question, index) => {
@@ -32,6 +33,7 @@ export function renderVoteForm(questions, optionsByQuestion) {
     </button>
   `;
 }
+// Екранування HTML у формі голосування
 function escapeHtml(value) {
     return value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }

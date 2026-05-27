@@ -10,6 +10,7 @@ export interface ImportedPollDraft {
 const MAX_QUESTIONS = 50;
 const MAX_OPTIONS = 8;
 
+// Обробчик CSV
 export function parsePollCsv(csvText: string): ImportedPollDraft {
   const rows = parseCsv(csvText)
     .map((row: string[]) => row.map((cell: string) => cell.trim()))
@@ -82,6 +83,7 @@ export function parsePollCsv(csvText: string): ImportedPollDraft {
   };
 }
 
+// Базовий парсер CSV
 function parseCsv(text: string): string[][] {
   const rows: string[][] = [];
   let row: string[] = [];
@@ -129,6 +131,7 @@ function parseCsv(text: string): string[][] {
   return rows;
 }
 
+// Перевірка наявності заголовка CSV
 function detectHeader(header: string[]): boolean {
   return header.some((cell: string) =>
     ['title', 'polltitle', 'description', 'question', 'назва', 'опис', 'питання'].includes(
@@ -137,15 +140,18 @@ function detectHeader(header: string[]): boolean {
   );
 }
 
+// Пошук індексу колонки
 function findColumnIndex(header: string[], aliases: string[]): number {
   const normalizedAliases = aliases.map(normalize);
   return header.findIndex((cell: string) => normalizedAliases.includes(normalize(cell)));
 }
 
+// Нормалізація назви колонки
 function normalize(value: string): string {
   return value.toLowerCase().replace(/[\s_-]/g, '');
 }
 
+// Отримання значення клітинки
 function getCell(row: string[], index: number): string {
   if (index < 0) {
     return '';

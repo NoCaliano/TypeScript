@@ -1,6 +1,7 @@
 const MAX_QUESTIONS = 50;
 const MAX_OPTIONS = 8;
 
+// Рендер форми створення опитування
 export function renderPollForm(): string {
   return `
     <div class="creator-shell">
@@ -85,6 +86,7 @@ export function renderPollForm(): string {
   `;
 }
 
+// Рендер блоку питання
 export function renderQuestionInput(
   index: number,
   questionText: string = '',
@@ -138,6 +140,7 @@ export function renderQuestionInput(
   `;
 }
 
+// Рендер поля варіанту відповіді
 export function renderOptionInput(
   questionIndex: number,
   optionIndex: number,
@@ -164,6 +167,7 @@ export function renderOptionInput(
   `;
 }
 
+// Екранування значення атрибута
 function escapeAttribute(value: string): string {
   return value
     .replace(/&/g, '&amp;')
