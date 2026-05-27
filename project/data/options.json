@@ -1,14 +1,31 @@
 [
-  { "id": 1, "pollId": 1, "text": "TypeScript" },
-  { "id": 2, "pollId": 1, "text": "JavaScript" },
-  { "id": 3, "pollId": 1, "text": "Python" },
-  { "id": 4, "pollId": 1, "text": "Rust" },
-  { "id": 5, "pollId": 2, "text": "Tailwind CSS" },
-  { "id": 6, "pollId": 2, "text": "Bootstrap" },
-  { "id": 7, "pollId": 2, "text": "Bulma" },
-  { "id": 8, "pollId": 2, "text": "Material UI" },
-  { "id": 9, "pollId": 3, "text": "PostgreSQL" },
-  { "id": 10, "pollId": 3, "text": "MongoDB" },
-  { "id": 11, "pollId": 3, "text": "MySQL" },
-  { "id": 12, "pollId": 3, "text": "SQLite" }
+  { "id": 1, "pollId": 1, "questionId": 1, "text": "Щодня" },
+  { "id": 2, "pollId": 1, "questionId": 1, "text": "3 рази на тиждень" },
+  { "id": 3, "pollId": 1, "questionId": 1, "text": "1 раз на тиждень" },
+  { "id": 4, "pollId": 1, "questionId": 1, "text": "Лише за потреби" },
+
+  { "id": 5, "pollId": 1, "questionId": 2, "text": "Письмовий апдейт у чаті" },
+  { "id": 6, "pollId": 1, "questionId": 2, "text": "Короткий дзвінок до 15 хвилин" },
+  { "id": 7, "pollId": 1, "questionId": 2, "text": "Таски в трекері без окремого апдейту" },
+  { "id": 8, "pollId": 1, "questionId": 2, "text": "Відео-апдейт асинхронно" },
+
+  { "id": 9, "pollId": 1, "questionId": 3, "text": "До обіду" },
+  { "id": 10, "pollId": 1, "questionId": 3, "text": "Після обіду" },
+  { "id": 11, "pollId": 1, "questionId": 3, "text": "Наприкінці дня" },
+  { "id": 12, "pollId": 1, "questionId": 3, "text": "Час неважливий" },
+
+  { "id": 13, "pollId": 2, "questionId": 4, "text": "Node.js + TypeScript" },
+  { "id": 14, "pollId": 2, "questionId": 4, "text": "Go" },
+  { "id": 15, "pollId": 2, "questionId": 4, "text": "Python" },
+  { "id": 16, "pollId": 2, "questionId": 4, "text": "Kotlin" },
+
+  { "id": 17, "pollId": 2, "questionId": 5, "text": "Щотижня" },
+  { "id": 18, "pollId": 2, "questionId": 5, "text": "Раз на 2 тижні" },
+  { "id": 19, "pollId": 2, "questionId": 5, "text": "Щомісяця" },
+  { "id": 20, "pollId": 2, "questionId": 5, "text": "За готовністю функцій" },
+
+  { "id": 21, "pollId": 2, "questionId": 6, "text": "Slack повідомлення" },
+  { "id": 22, "pollId": 2, "questionId": 6, "text": "Email дайджест" },
+  { "id": 23, "pollId": 2, "questionId": 6, "text": "PagerDuty / on-call" },
+  { "id": 24, "pollId": 2, "questionId": 6, "text": "Лише дашборди без алертів" }
 ]

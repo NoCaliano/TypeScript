@@ -1,39 +1,83 @@
+const MAX_QUESTIONS = 50;
+const MAX_OPTIONS = 8;
+
 export function renderPollForm(): string {
   return `
-    <div class="max-w-2xl mx-auto">
-      <h1 class="text-2xl font-bold text-gray-800 mb-6">Нове опитування</h1>
-      <div class="bg-white rounded-2xl shadow-md p-8 flex flex-col gap-5 border border-gray-100">
-
-        <div class="flex flex-col gap-1">
-          <label class="text-sm font-semibold text-gray-700">Назва опитування <span class="text-red-500">*</span></label>
-          <input id="poll-title" type="text" maxlength="120"
-            class="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400 text-gray-800"
-            placeholder="Наприклад: Улюблена мова програмування" />
+    <div class="creator-shell">
+      <section class="creator-header surface-panel">
+        <p class="eyebrow">Poll Designer</p>
+        <h1 class="creator-title">Створюй опитування як маленький продукт</h1>
+        <p class="creator-copy">Одна форма, багато питань, швидкий імпорт з CSV і чистий робочий потік без зайвої плутанини.</p>
+        <div class="creator-meta">
+          <span class="detail-badge">До ${MAX_QUESTIONS} питань</span>
+          <span class="detail-badge">CSV імпорт</span>
+          <span class="detail-badge">Багатопитальне голосування</span>
         </div>
+      </section>
 
-        <div class="flex flex-col gap-1">
-          <label class="text-sm font-semibold text-gray-700">Опис</label>
-          <textarea id="poll-description" rows="3" maxlength="300"
-            class="border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-400 text-gray-800 resize-none"
-            placeholder="Необов'язково — короткий опис теми"></textarea>
-        </div>
-
-        <div class="flex flex-col gap-2">
-          <label class="text-sm font-semibold text-gray-700">Варіанти відповідей <span class="text-red-500">*</span> <span class="text-gray-400 font-normal">(мін. 2, макс. 8)</span></label>
-          <div id="options-container" class="flex flex-col gap-2">
-            ${renderOptionInput(1)}
-            ${renderOptionInput(2)}
+      <div class="surface-panel creator-panel flex flex-col gap-6">
+        <div class="import-card flex flex-col gap-3">
+          <div>
+            <h2 class="text-xl font-bold text-gray-800">Імпорт з CSV</h2>
+            <p class="field-help mt-2">
+              Формат рядка: <code>title,description,question,option1,option2,...</code>
+            </p>
           </div>
-          <button id="add-option-btn"
-            class="mt-1 text-sm text-indigo-600 hover:text-indigo-800 font-medium self-start flex items-center gap-1 transition">
-            <span class="text-lg leading-none">+</span> Додати варіант
-          </button>
+          <input
+            id="csv-upload"
+            type="file"
+            accept=".csv,text/csv"
+            class="block w-full text-sm"
+          />
+          <p class="field-help">
+            Кожен рядок створює окреме питання. Назву й опис можна повторювати в кожному рядку або вказати лише в першому.
+          </p>
         </div>
 
-        <div id="form-error" class="hidden text-sm text-red-600 bg-red-50 rounded-lg px-4 py-2"></div>
+        <div class="flex flex-col gap-1">
+          <label class="field-label">Назва опитування <span class="text-red-500">*</span></label>
+          <input
+            id="poll-title"
+            type="text"
+            maxlength="120"
+            class="input-field px-4 py-3"
+            placeholder="Наприклад: Улюблені інструменти команди"
+          />
+        </div>
 
-        <button id="submit-poll-btn"
-          class="w-full bg-indigo-600 hover:bg-indigo-700 active:bg-indigo-800 text-white font-semibold py-3 rounded-xl transition text-base">
+        <div class="flex flex-col gap-1">
+          <label class="field-label">Опис</label>
+          <textarea
+            id="poll-description"
+            rows="3"
+            maxlength="300"
+            class="input-field px-4 py-3 resize-none"
+            placeholder="Необов'язково — короткий опис теми"
+          ></textarea>
+        </div>
+
+        <div class="flex flex-col gap-3">
+          <div class="field-header flex items-center justify-between gap-3">
+            <label class="field-label mb-0">
+              Питання <span class="text-red-500">*</span>
+              <span class="text-gray-500 font-normal">(від 1 до ${MAX_QUESTIONS})</span>
+            </label>
+            <button
+              id="add-question-btn"
+              type="button"
+              class="text-sm"
+            >
+              + Додати питання
+            </button>
+          </div>
+          <div id="questions-container" class="flex flex-col gap-4">
+            ${renderQuestionInput(1)}
+          </div>
+        </div>
+
+        <div id="form-error" class="hidden text-sm px-4 py-3"></div>
+
+        <button id="submit-poll-btn" class="w-full text-base">
           Створити опитування
         </button>
       </div>
@@ -41,14 +85,89 @@ export function renderPollForm(): string {
   `;
 }
 
-export function renderOptionInput(index: number): string {
+export function renderQuestionInput(
+  index: number,
+  questionText: string = '',
+  optionTexts: string[] = ['', '']
+): string {
+  const safeOptions = optionTexts.length >= 2 ? optionTexts.slice(0, MAX_OPTIONS) : ['', ''];
+
   return `
-    <div class="flex gap-2 items-center option-row" data-index="${index}">
-      <span class="text-sm text-gray-400 w-5 text-right">${index}.</span>
-      <input type="text" maxlength="100"
-        class="option-input flex-1 border border-gray-300 rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-300 text-gray-800"
-        placeholder="Варіант ${index}" />
-      ${index > 2 ? `<button class="remove-option-btn text-gray-400 hover:text-red-500 transition text-lg leading-none" title="Видалити">×</button>` : '<span class="w-5"></span>'}
+    <section class="question-block flex flex-col gap-4" data-question-index="${index}">
+      <div class="question-block__header flex items-center justify-between gap-3">
+        <div>
+          <p class="question-label text-xs font-semibold uppercase tracking-[0.2em]">Питання ${index}</p>
+        </div>
+        <button
+          type="button"
+          class="remove-question-btn text-sm"
+        >
+          Видалити
+        </button>
+      </div>
+
+      <div class="flex flex-col gap-1">
+        <label class="field-label mb-0 text-sm">Текст питання</label>
+        <input
+          type="text"
+          maxlength="180"
+          value="${escapeAttribute(questionText)}"
+          class="question-title-input px-4 py-3"
+          placeholder="Наприклад: Який формат ретро вам зручніший?"
+        />
+      </div>
+
+      <div class="flex flex-col gap-2">
+        <div class="question-options__header flex items-center justify-between gap-3">
+          <label class="field-label mb-0 text-sm">
+            Варіанти відповіді <span class="text-red-500">*</span>
+            <span class="text-gray-500 font-normal">(мін. 2, макс. ${MAX_OPTIONS})</span>
+          </label>
+          <button
+            type="button"
+            class="add-option-btn text-sm"
+          >
+            + Додати варіант
+          </button>
+        </div>
+        <div class="question-options-container flex flex-col gap-2">
+          ${safeOptions.map((text, optionIndex) => renderOptionInput(index, optionIndex + 1, text)).join('')}
+        </div>
+      </div>
+    </section>
+  `;
+}
+
+export function renderOptionInput(
+  questionIndex: number,
+  optionIndex: number,
+  value: string = ''
+): string {
+  return `
+    <div class="option-row gap-2" data-question-index="${questionIndex}" data-option-index="${optionIndex}">
+      <span class="option-number text-sm text-right">${optionIndex}.</span>
+      <input
+        type="text"
+        maxlength="100"
+        value="${escapeAttribute(value)}"
+        class="option-input flex-1 px-4 py-3"
+        placeholder="Варіант ${optionIndex}"
+      />
+      <button
+        type="button"
+        class="remove-option-btn text-lg leading-none text-center"
+        title="Видалити варіант"
+      >
+        ×
+      </button>
     </div>
   `;
+}
+
+function escapeAttribute(value: string): string {
+  return value
+    .replace(/&/g, '&amp;')
+    .replace(/"/g, '&quot;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
 }

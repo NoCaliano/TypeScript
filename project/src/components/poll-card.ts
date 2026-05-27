@@ -1,22 +1,25 @@
 import type { Poll } from '../models/poll.js';
 
-export function renderPollCard(poll: Poll): string {
+export function renderPollCard(poll: Poll, questionCount: number = 0): string {
   const date: string = new Date(poll.createdAt).toLocaleDateString('uk-UA');
+
   return `
-    <div class="bg-white rounded-2xl shadow-md hover:shadow-xl transition-shadow duration-300 p-6 flex flex-col border border-gray-100 min-h-[200px]">
-      <h3 class="text-lg font-semibold text-gray-800 mb-1">${escapeHtml(poll.title)}</h3>
-      <p class="text-sm text-gray-500 flex-1 line-clamp-3">${escapeHtml(poll.description)}</p>
-      <div class="flex flex-col gap-2 mt-3">
-        <span class="text-xs text-gray-400">📅 ${date}</span>
-        <div class="flex gap-2">
-          <a href="#/poll/${poll.id}" class="flex-1 text-center bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-medium px-2 py-2 rounded-lg transition">Голосувати</a>
-          <a href="#/results/${poll.id}" class="flex-1 text-center bg-gray-100 hover:bg-gray-200 text-gray-700 text-xs font-medium px-2 py-2 rounded-lg transition">Результати</a>
-        </div>
+    <article class="poll-card reveal-card">
+      <div class="poll-card__meta">
+        <span class="pill">Опитування</span>
+        <span class="poll-card__date">${date}</span>
+        ${questionCount > 0 ? `<span class="poll-card__count">${questionCount} питань</span>` : ''}
       </div>
-    </div>
+      <h3 class="poll-card__title">${escapeHtml(poll.title)}</h3>
+      <p class="poll-card__description">${escapeHtml(poll.description)}</p>
+      <div class="poll-card__actions">
+        <a href="#/poll/${poll.id}" class="poll-card__action poll-card__action--primary">Голосувати</a>
+        <a href="#/results/${poll.id}" class="poll-card__action poll-card__action--secondary">Результати</a>
+      </div>
+    </article>
   `;
 }
 
-function escapeHtml(str: string): string {
-  return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+function escapeHtml(value: string): string {
+  return value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }

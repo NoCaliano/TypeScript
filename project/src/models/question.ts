@@ -1,6 +1,5 @@
-export interface Option {
+export interface Question {
   id: number;
   pollId: number;
-  questionId: number;
   text: string;
 }
