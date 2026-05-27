@@ -1,0 +1,14 @@
+[
+  { "id": 1, "pollId": 1, "text": "TypeScript" },
+  { "id": 2, "pollId": 1, "text": "JavaScript" },
+  { "id": 3, "pollId": 1, "text": "Python" },
+  { "id": 4, "pollId": 1, "text": "Rust" },
+  { "id": 5, "pollId": 2, "text": "Tailwind CSS" },
+  { "id": 6, "pollId": 2, "text": "Bootstrap" },
+  { "id": 7, "pollId": 2, "text": "Bulma" },
+  { "id": 8, "pollId": 2, "text": "Material UI" },
+  { "id": 9, "pollId": 3, "text": "PostgreSQL" },
+  { "id": 10, "pollId": 3, "text": "MongoDB" },
+  { "id": 11, "pollId": 3, "text": "MySQL" },
+  { "id": 12, "pollId": 3, "text": "SQLite" }
+]
