@@ -1,5 +1,6 @@
 const MAX_QUESTIONS = 50;
 const MAX_OPTIONS = 8;
+// Рендер форми створення опитування
 export function renderPollForm() {
     return `
     <div class="creator-shell">
@@ -83,6 +84,7 @@ export function renderPollForm() {
     </div>
   `;
 }
+// Рендер блоку питання
 export function renderQuestionInput(index, questionText = '', optionTexts = ['', '']) {
     const safeOptions = optionTexts.length >= 2 ? optionTexts.slice(0, MAX_OPTIONS) : ['', ''];
     return `
@@ -130,6 +132,7 @@ export function renderQuestionInput(index, questionText = '', optionTexts = ['',
     </section>
   `;
 }
+// Рендер поля варіанту відповіді
 export function renderOptionInput(questionIndex, optionIndex, value = '') {
     return `
     <div class="option-row gap-2" data-question-index="${questionIndex}" data-option-index="${optionIndex}">
@@ -151,6 +154,7 @@ export function renderOptionInput(questionIndex, optionIndex, value = '') {
     </div>
   `;
 }
+// Екранування значення атрибута
 function escapeAttribute(value) {
     return value
         .replace(/&/g, '&amp;')

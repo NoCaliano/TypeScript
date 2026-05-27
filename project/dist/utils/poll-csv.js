@@ -1,5 +1,6 @@
 const MAX_QUESTIONS = 50;
 const MAX_OPTIONS = 8;
+// Обробчик CSV
 export function parsePollCsv(csvText) {
     const rows = parseCsv(csvText)
         .map((row) => row.map((cell) => cell.trim()))
@@ -56,6 +57,7 @@ export function parsePollCsv(csvText) {
         questions,
     };
 }
+// Базовий парсер CSV
 function parseCsv(text) {
     const rows = [];
     let row = [];
@@ -96,16 +98,20 @@ function parseCsv(text) {
     rows.push(row);
     return rows;
 }
+// Перевірка наявності заголовка CSV
 function detectHeader(header) {
     return header.some((cell) => ['title', 'polltitle', 'description', 'question', 'назва', 'опис', 'питання'].includes(normalize(cell)));
 }
+// Пошук індексу колонки
 function findColumnIndex(header, aliases) {
     const normalizedAliases = aliases.map(normalize);
     return header.findIndex((cell) => normalizedAliases.includes(normalize(cell)));
 }
+// Нормалізація назви колонки
 function normalize(value) {
     return value.toLowerCase().replace(/[\s_-]/g, '');
 }
+// Отримання значення клітинки
 function getCell(row, index) {
     if (index < 0) {
         return '';

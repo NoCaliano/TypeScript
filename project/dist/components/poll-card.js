@@ -1,3 +1,4 @@
+// Рендер картки опитування
 export function renderPollCard(poll, questionCount = 0) {
     const date = new Date(poll.createdAt).toLocaleDateString('uk-UA');
     return `
@@ -16,6 +17,7 @@ export function renderPollCard(poll, questionCount = 0) {
     </article>
   `;
 }
+// Екранування HTML у картці
 function escapeHtml(value) {
     return value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }

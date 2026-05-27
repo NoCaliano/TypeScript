@@ -7,10 +7,12 @@ import { parsePollCsv } from './utils/poll-csv.js';
 const MAX_QUESTIONS = 50;
 const MAX_OPTIONS = 8;
 const service = new PollService();
+// Ініціалізація роутера
 export function initRouter() {
     window.addEventListener('hashchange', handleRoute);
     handleRoute();
 }
+// Обробка маршруту сторінки
 async function handleRoute() {
     const hash = window.location.hash || '#/';
     const app = document.getElementById('app');
@@ -34,6 +36,7 @@ async function handleRoute() {
     }
     renderNotFound(app);
 }
+// Рендер головної сторінки
 async function renderHome(app) {
     app.innerHTML =
         renderNavbar('home') +
@@ -110,6 +113,7 @@ async function renderHome(app) {
             '<div class="col-span-full error-state surface-panel text-red-400">Помилка завантаження даних.</div>';
     }
 }
+// Рендер сторінки створення
 function renderCreate(app) {
     app.innerHTML =
         renderNavbar('create') +
@@ -120,6 +124,7 @@ function renderCreate(app) {
     `;
     attachCreateHandlers();
 }
+// Рендер сторінки голосування
 async function renderPoll(app, pollId) {
     app.innerHTML =
         renderNavbar() +
@@ -178,6 +183,7 @@ async function renderPoll(app, pollId) {
         window.location.hash = `#/results/${pollId}`;
     });
 }
+// Рендер сторінки результатів
 async function renderResults(app, pollId) {
     app.innerHTML =
         renderNavbar() +
@@ -256,6 +262,7 @@ async function renderResults(app, pollId) {
     </section>
   `;
 }
+// Рендер сторінки 404
 function renderNotFound(app) {
     app.innerHTML =
         renderNavbar() +
@@ -270,6 +277,7 @@ function renderNotFound(app) {
       </main>
     `;
 }
+// Підключення логіки форми створення
 function attachCreateHandlers() {
     const titleInput = document.getElementById('poll-title');
     const descriptionInput = document.getElementById('poll-description');
@@ -277,18 +285,23 @@ function attachCreateHandlers() {
     const addQuestionBtn = document.getElementById('add-question-btn');
     const csvInput = document.getElementById('csv-upload');
     const errorEl = document.getElementById('form-error');
+    // Отримання списку блоків питань
     const getQuestionBlocks = () => Array.from(questionsContainer.querySelectorAll('.question-block'));
+    // Отримання списку варіантів питання
     const getOptionRows = (questionBlock) => Array.from(questionBlock.querySelectorAll('.option-row'));
+    // Створення DOM-блоку питання
     const createQuestionBlock = (index, question) => {
         const wrapper = document.createElement('div');
         wrapper.innerHTML = renderQuestionInput(index, question?.text ?? '', question?.options ?? ['', '']);
         return wrapper.firstElementChild;
     };
+    // Створення DOM-рядка варіанту
     const createOptionRow = (questionIndex, optionIndex, value = '') => {
         const wrapper = document.createElement('div');
         wrapper.innerHTML = renderOptionInput(questionIndex, optionIndex, value);
         return wrapper.firstElementChild;
     };
+    // Синхронізація індексів і стану кнопок
     function syncQuestionUi() {
         const questionBlocks = getQuestionBlocks();
         questionBlocks.forEach((questionBlock, questionIndex) => {
@@ -333,6 +346,7 @@ function attachCreateHandlers() {
         addQuestionBtn.classList.toggle('opacity-40', limitReached);
         addQuestionBtn.classList.toggle('pointer-events-none', limitReached);
     }
+    // Перебудова списку питань після імпорту
     function rebuildQuestions(questions) {
         questionsContainer.innerHTML = '';
         questions.forEach((question, index) => {
@@ -438,6 +452,7 @@ function attachCreateHandlers() {
     });
     syncQuestionUi();
 }
+// Групування варіантів за питаннями
 function groupOptionsByQuestion(options) {
     const map = new Map();
     for (const option of options) {
@@ -447,13 +462,16 @@ function groupOptionsByQuestion(options) {
     }
     return map;
 }
+// Показ повідомлення про помилку
 function showError(element, message) {
     element.textContent = message;
     element.classList.remove('hidden');
 }
+// Екранування HTML у роутері
 function escapeHtml(value) {
     return value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }
+// Вибір правильного закінчення слова "голос"
 function voteSuffix(count) {
     if (count % 10 === 1 && count % 100 !== 11) {
         return '';

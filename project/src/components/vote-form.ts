@@ -1,6 +1,7 @@
 import type { Option } from '../models/option.js';
 import type { Question } from '../models/question.js';
 
+// Рендер форми голосування
 export function renderVoteForm(
   questions: Question[],
   optionsByQuestion: Map<number, Option[]>
@@ -43,6 +44,7 @@ export function renderVoteForm(
   `;
 }
 
+// Екранування HTML у формі голосування
 function escapeHtml(value: string): string {
   return value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }

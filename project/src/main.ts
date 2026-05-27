@@ -1,13 +1,14 @@
 import { initRouter } from './router.js';
 
 const SEED_VERSION_KEY = 'poll_app_seed_version';
-const CURRENT_SEED_VERSION = '2026-05-28-multi-question-seeds';
+const CURRENT_SEED_VERSION = '2026-05-28-multi-question-seeds-v2';
 
 document.addEventListener('DOMContentLoaded', (): void => {
   syncSeedVersion();
   initRouter();
 });
 
+// Синхронізація seed-даних
 function syncSeedVersion(): void {
   const storedVersion = localStorage.getItem(SEED_VERSION_KEY);
   if (storedVersion === CURRENT_SEED_VERSION) {

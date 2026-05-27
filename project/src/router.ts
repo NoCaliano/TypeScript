@@ -22,11 +22,13 @@ interface QuestionDraft {
   options: string[];
 }
 
+// Ініціалізація роутера
 export function initRouter(): void {
   window.addEventListener('hashchange', handleRoute);
   handleRoute();
 }
 
+// Обробка маршруту сторінки
 async function handleRoute(): Promise<void> {
   const hash = window.location.hash || '#/';
   const app = document.getElementById('app')!;
@@ -56,6 +58,7 @@ async function handleRoute(): Promise<void> {
   renderNotFound(app);
 }
 
+// Рендер головної сторінки
 async function renderHome(app: HTMLElement): Promise<void> {
   app.innerHTML =
     renderNavbar('home') +
@@ -136,6 +139,7 @@ async function renderHome(app: HTMLElement): Promise<void> {
   }
 }
 
+// Рендер сторінки створення
 function renderCreate(app: HTMLElement): void {
   app.innerHTML =
     renderNavbar('create') +
@@ -148,6 +152,7 @@ function renderCreate(app: HTMLElement): void {
   attachCreateHandlers();
 }
 
+// Рендер сторінки голосування
 async function renderPoll(app: HTMLElement, pollId: number): Promise<void> {
   app.innerHTML =
     renderNavbar() +
@@ -221,6 +226,7 @@ async function renderPoll(app: HTMLElement, pollId: number): Promise<void> {
   });
 }
 
+// Рендер сторінки результатів
 async function renderResults(app: HTMLElement, pollId: number): Promise<void> {
   app.innerHTML =
     renderNavbar() +
@@ -312,6 +318,7 @@ async function renderResults(app: HTMLElement, pollId: number): Promise<void> {
   `;
 }
 
+// Рендер сторінки 404
 function renderNotFound(app: HTMLElement): void {
   app.innerHTML =
     renderNavbar() +
@@ -327,6 +334,7 @@ function renderNotFound(app: HTMLElement): void {
     `;
 }
 
+// Підключення логіки форми створення
 function attachCreateHandlers(): void {
   const titleInput = document.getElementById('poll-title') as HTMLInputElement;
   const descriptionInput = document.getElementById('poll-description') as HTMLTextAreaElement;
@@ -335,18 +343,22 @@ function attachCreateHandlers(): void {
   const csvInput = document.getElementById('csv-upload') as HTMLInputElement;
   const errorEl = document.getElementById('form-error') as HTMLElement;
 
+  // Отримання списку блоків питань
   const getQuestionBlocks = (): HTMLElement[] =>
     Array.from(questionsContainer.querySelectorAll<HTMLElement>('.question-block'));
 
+  // Отримання списку варіантів питання
   const getOptionRows = (questionBlock: HTMLElement): HTMLElement[] =>
     Array.from(questionBlock.querySelectorAll<HTMLElement>('.option-row'));
 
+  // Створення DOM-блоку питання
   const createQuestionBlock = (index: number, question?: QuestionDraft): HTMLElement => {
     const wrapper = document.createElement('div');
     wrapper.innerHTML = renderQuestionInput(index, question?.text ?? '', question?.options ?? ['', '']);
     return wrapper.firstElementChild as HTMLElement;
   };
 
+  // Створення DOM-рядка варіанту
   const createOptionRow = (
     questionIndex: number,
     optionIndex: number,
@@ -357,6 +369,7 @@ function attachCreateHandlers(): void {
     return wrapper.firstElementChild as HTMLElement;
   };
 
+  // Синхронізація індексів і стану кнопок
   function syncQuestionUi(): void {
     const questionBlocks = getQuestionBlocks();
 
@@ -412,6 +425,7 @@ function attachCreateHandlers(): void {
     addQuestionBtn.classList.toggle('pointer-events-none', limitReached);
   }
 
+  // Перебудова списку питань після імпорту
   function rebuildQuestions(questions: QuestionDraft[]): void {
     questionsContainer.innerHTML = '';
     questions.forEach((question: QuestionDraft, index: number) => {
@@ -550,6 +564,7 @@ function attachCreateHandlers(): void {
   syncQuestionUi();
 }
 
+// Групування варіантів за питаннями
 function groupOptionsByQuestion(options: Option[]): Map<number, Option[]> {
   const map = new Map<number, Option[]>();
 
@@ -562,15 +577,18 @@ function groupOptionsByQuestion(options: Option[]): Map<number, Option[]> {
   return map;
 }
 
+// Показ повідомлення про помилку
 function showError(element: HTMLElement, message: string): void {
   element.textContent = message;
   element.classList.remove('hidden');
 }
 
+// Екранування HTML у роутері
 function escapeHtml(value: string): string {
   return value.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 }
 
+// Вибір правильного закінчення слова "голос"
 function voteSuffix(count: number): string {
   if (count % 10 === 1 && count % 100 !== 11) {
     return '';
